@@ -1,0 +1,11 @@
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabaseUrl = 'https://okdfmpzgxeijwzuukjpj.supabase.co';
+const supabaseAnonKey = 'sb_publishable_ZJWdQ1F7J7LRycsBUF2e2A__wTZWUFX';
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+  },
+});

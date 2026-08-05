@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Escolar - Sistema de Presença</title>
+    <link rel="stylesheet" href="../styles/index.css">
+</head>
+
+<body>
+    <div class="dashboard-page">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+                <div>
+                    <p class="brand-label">Colégio Suplicy</p>
+                    <p class="brand-subtitle">Sistema Integrado</p>
+                </div>
+            </div>
+
+            <div class="ranking-sidebar-card">
+                <div class="ranking-sidebar-header">
+                    <p class="ranking-sidebar-eyebrow">Top 5</p>
+                    <h2>Ranking das turmas</h2>
+                </div>
+                <div class="ranking-sidebar-list" id="sidebarRankingList"></div>
+            </div>
+
+            <div class="sidebar-clock-card">
+                <span class="sidebar-clock-label">Horário</span>
+                <span class="sidebar-clock-time" id="clockTime">--:--</span>
+                <span class="sidebar-clock-date" id="clockDate">--</span>
+            </div>
+        </aside>
+ 
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Frequência e Desempenho</h1>
+                </div>
+            </header>
+
+
+            <section class="summary-cards">
+                <article class="stat-card">
+                    <span class="stat-label">Total alunos</span>
+                    <strong id="totalCount">1.247</strong>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-label">Presentes hoje</span>
+                    <strong id="presentCount">1.089</strong>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-label">Média geral</span>
+                    <strong id="averageScore">7.8</strong>
+                </article>
+                <article class="stat-card">
+                    <span class="stat-label">Turmas ativas</span>
+                    <strong id="activeClasses">32</strong>
+                </article>
+            </section>                            <!-- >>>>>>> 67e6a59239a8146094a915a2d71251033092b1c5 -->
+                                                                            
+            <section class="classes-grid-section">
+                <div class="classes-grid" id="classesGrid"></div>
+            </section>
+        </main>
+    </div>
+
+<script type="module" src="../services/app.js"></script>
+</body>
+
+</html>
