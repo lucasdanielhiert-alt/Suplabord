@@ -195,13 +195,26 @@ function calcularResumo(turmas) {
     ? mediasValidas.reduce((soma, valor) => soma + valor, 0) / mediasValidas.length
     : null;
 
+  const frequenciasValidas = extracoes
+    .map((turma) => turma.frequenciaBruta)
+    .filter((frequencia) => frequencia !== null && frequencia !== undefined)
+    .map((frequencia) => {
+      const numero = Number(frequencia);
+      return numero <= 1 ? numero * 100 : numero;
+    })
+    .filter((valor) => !Number.isNaN(valor));
+
+  const averagePresence = frequenciasValidas.length
+    ? frequenciasValidas.reduce((soma, valor) => soma + valor, 0) / frequenciasValidas.length
+    : null;
+
   const totalCount = extracoes
     .map((turma) => Number(turma.totalAlunos) || 0)
     .reduce((soma, valor) => soma + valor, 0);
 
   return {
     totalCount,
-    presentCount: "--",
+    averagePresence: averagePresence !== null ? `${averagePresence.toFixed(0)}%` : "--",
     averageScore: averageScore !== null ? averageScore.toFixed(1) : "--",
     activeClasses: turmas.length,
   };
@@ -305,8 +318,8 @@ export default function App() {
             <strong>{resumo.totalCount}</strong>
           </article>
           <article className="stat-card">
-            <span className="stat-label">Presentes hoje</span>
-            <strong>{resumo.presentCount}</strong>
+            <span className="stat-label">Média presença geral</span>
+            <strong>{resumo.averagePresence}</strong>
           </article>
           <article className="stat-card">
             <span className="stat-label">Média geral</span>
