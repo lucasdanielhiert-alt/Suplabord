@@ -60,6 +60,33 @@ function normalizarParaCem(valor, ehNota) {
   return numero;
 }
 
+function pegarTotalAlunos(row, chavesJaUsadas) {
+  const totalInfo = pegarCampoComChave(row, [
+    "total_alunos",
+    "alunos",
+    "numero_alunos",
+    "quantidade_alunos",
+    "qtd_alunos",
+    "matriculados",
+    "total_estudantes",
+    "estudantes",
+  ]);
+
+  if (totalInfo) {
+    const numero = Number(totalInfo.valor);
+    if (!Number.isNaN(numero)) {
+      return numero;
+    }
+  }
+
+  const restante = pegarNumericoRestante(row, chavesJaUsadas);
+  if (restante) {
+    return Number(restante.valor);
+  }
+
+  return null;
+}
+
 function extrairTurma(row) {
   const nomeInfo = pegarCampoComChave(row, [
     "nome",
@@ -95,18 +122,21 @@ function extrairTurma(row) {
     mediaInfo = null;
   }
 
+  const chavesJaUsadas = [
+    nomeInfo?.chave,
+    segmentoInfo?.chave,
+    turnoInfo?.chave,
+    frequenciaInfo?.chave,
+    mediaInfo?.chave,
+  ];
+
   if (!mediaInfo) {
-    const chavesJaUsadas = [
-      nomeInfo?.chave,
-      segmentoInfo?.chave,
-      turnoInfo?.chave,
-      frequenciaInfo?.chave,
-    ];
     mediaInfo = pegarNumericoRestante(row, chavesJaUsadas);
   }
 
   const frequenciaBruta = frequenciaInfo?.valor ?? null;
   const mediaBruta = mediaInfo?.valor ?? null;
+  const totalAlunos = pegarTotalAlunos(row, chavesJaUsadas);
 
   return {
     id: row.id ?? row.nome ?? row.turma ?? row.titulo ?? Math.random().toString(36).slice(2),
@@ -115,6 +145,7 @@ function extrairTurma(row) {
     turno: turnoInfo?.valor ?? "",
     frequenciaBruta,
     mediaBruta,
+    totalAlunos,
     frequencia: formatarPercentual(frequenciaBruta),
     media: formatarMedia(mediaBruta),
     frequenciaNormalizada: normalizarParaCem(frequenciaBruta, false),
@@ -149,8 +180,10 @@ function criarRanking(turmas) {
 }
 
 function calcularResumo(turmas) {
-  const mediasValidas = turmas
-    .map((row) => extrairTurma(row).mediaBruta)
+  const extracoes = turmas.map((row) => extrairTurma(row));
+
+  const mediasValidas = extracoes
+    .map((turma) => turma.mediaBruta)
     .filter((media) => media !== null && media !== undefined)
     .map((media) => {
       const numero = Number(media);
@@ -162,8 +195,12 @@ function calcularResumo(turmas) {
     ? mediasValidas.reduce((soma, valor) => soma + valor, 0) / mediasValidas.length
     : null;
 
+  const totalCount = extracoes
+    .map((turma) => Number(turma.totalAlunos) || 0)
+    .reduce((soma, valor) => soma + valor, 0);
+
   return {
-    totalCount: turmas.length,
+    totalCount,
     presentCount: "--",
     averageScore: averageScore !== null ? averageScore.toFixed(1) : "--",
     activeClasses: turmas.length,
