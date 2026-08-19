@@ -312,25 +312,6 @@ export default function App() {
 
         {error && <p style={{ color: "#ef4444" }}>Erro ao carregar dados: {error}</p>}
 
-        <section className="summary-cards">
-          <article className="stat-card">
-            <span className="stat-label">Total alunos</span>
-            <strong>{resumo.totalCount}</strong>
-          </article>
-          <article className="stat-card">
-            <span className="stat-label">Média presença geral</span>
-            <strong>{resumo.averagePresence}</strong>
-          </article>
-          <article className="stat-card">
-            <span className="stat-label">Média geral</span>
-            <strong>{resumo.averageScore}</strong>
-          </article>
-          <article className="stat-card">
-            <span className="stat-label">Turmas ativas</span>
-            <strong>{resumo.activeClasses}</strong>
-          </article>
-        </section>
-
         <section className="classes-grid-section">
           {loading ? (
             <p style={{ color: "#64748b" }}>Carregando turmas...</p>
