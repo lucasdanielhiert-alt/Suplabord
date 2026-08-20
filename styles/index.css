@@ -132,7 +132,27 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 22px;
   padding: 16px 18px;
-  display: flex;
+  .logo-image {
+      width: 50px; /* Ajuste o tamanho da logo conforme necessário */
+      height: auto;
+      margin-right: 10px;
+      vertical-align: middle;
+  }
+  
+  .page-header {
+      background-color: #007BFF; /* Cor azul */
+      padding: 10px 20px; /* Reduzindo o espaçamento */
+      display: flex;
+      align-items: center;
+      color: white;
+  }
+  
+  .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Aumentando o tamanho mínimo */
+      gap: 20px; /* Espaçamento entre os itens */
+      padding: 20px;
+  }
   flex-direction: column;
   gap: 6px;
   text-align: center;
@@ -258,6 +278,8 @@ body {
   flex-direction: column;
   gap: 24px;
 }
+
+
 
 .page-header {
   display: flex;
