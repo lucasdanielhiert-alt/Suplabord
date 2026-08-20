@@ -16,18 +16,39 @@ body {
   background: linear-gradient(180deg, #ecf1f7 0%, #f8fafc 100%);
 }
 
+.brand-logo {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.header-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.page-header-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .dashboard-page {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 24px;
-  padding: 32px;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  padding: 24px;
   min-height: 100vh;
 }
 
 .sidebar {
   background: #142d57;
-  border-radius: 32px;
-  padding: 32px;
+  border-radius: 22px;
+  padding: 22px;
   color: #f8fafc;
   display: flex;
   flex-direction: column;
